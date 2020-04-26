@@ -13,6 +13,7 @@
 
     let newItem = {
         description: '',
+        quantity: 1,
         isDone: false,
         isEditing: false,
         category: '',
@@ -23,9 +24,17 @@
             return
         }
 
+        const [quantity, description] = newItem.description.split(' ', 2)
+        const parsed = Number.parseFloat(quantity)
+        if (parsed) {
+            newItem.quantity = parsed
+            newItem.description = description
+        }
+
         items.add(newItem)
         newItem = {
             description: '',
+            quantity: 1,
             isDone: false,
             isEditing: false,
             category: '',
@@ -33,17 +42,17 @@
     }
 
     function toggleDone(item) {
-      items.update({
-          ...item,
-          isDone: !item.isDone,
-      })
+        items.update({
+            ...item,
+            isDone: !item.isDone,
+        })
     }
 
     function setEditing(item, isEditing) {
-      items.update({
-          ...item,
-          isEditing,
-      })
+        items.update({
+            ...item,
+            isEditing,
+        })
     }
 </script>
 
@@ -88,9 +97,13 @@
                         ✓
                     </span>
 
-                    <span class="item-list-item-description" on:click={() => setEditing(true)}>
+                  <span class="item-list-item-description" on:click={() => setEditing(true)}>
                             { item.description }
                         </span>
+
+                  <span class="item-list-item-quantity">
+                    { item.quantity }
+                  </span>
               </article>
           {/each}
         </div>
@@ -154,9 +167,13 @@
         gap: 1rem;
     }
 
-    div.item-list-item-description>div {
+    div.item-list-item-description > div {
         display: flex;
         gap: .5rem;
+    }
+
+    .item-list-item-quantity {
+        opacity: .8;
     }
 
     .is-done {
