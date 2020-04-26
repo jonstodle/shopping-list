@@ -1,7 +1,7 @@
 <script>
     import {slide} from 'svelte/transition'
+    import items from './items'
 
-    let items = []
     const categories = [
         'Dairy',
         'Baked goods',
@@ -18,28 +18,32 @@
         category: '',
     }
 
-    $: {
-        items = items
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .sort((a, b) => a.category.localeCompare(b.category))
-                .sort((a, b) => a.isDone == b.isDone ? 0 : a.isDone ? 1 : -1)
-    }
-
     function addItem() {
         if (!newItem.description) {
             return
         }
 
-        items = [
-            ...items,
-            newItem,
-        ]
+        items.add(newItem)
         newItem = {
             description: '',
             isDone: false,
             isEditing: false,
             category: '',
         }
+    }
+
+    function toggleDone(item) {
+      items.update({
+          ...item,
+          isDone: !item.isDone,
+      })
+    }
+
+    function setEditing(item, isEditing) {
+      items.update({
+          ...item,
+          isEditing,
+      })
     }
 </script>
 
@@ -68,40 +72,25 @@
 
     <section class="section">
         <div class="container">
-          {#each items as item, index}
+          {#each $items as item, index}
             {#if index == 0 && !item.isDone}
-                <h2 class="title">{ items.filter(i => !i.isDone).length } left</h2>
-            {:else if (index == 0 && item.isDone) || item.isDone != items[index - 1].isDone}
+                <h2 class="title">{ $items.filter(i => !i.isDone).length } left</h2>
+            {:else if (index == 0 && item.isDone) || item.isDone != $items[index - 1].isDone}
                 <h2 class="title">Done</h2>
             {/if}
 
-            {#if !item.isDone && (index == 0 || item.category != items[index - 1].category)}
+            {#if !item.isDone && (index == 0 || item.category != $items[index - 1].category)}
                 <h2 class="subtitle">{ item.category || 'Uncategorised' }</h2>
             {/if}
 
               <article class="box item-list-item" class:is-done={item.isDone} transition:slide={{duration: 200}}>
-                    <span class="checkbox" on:click={() => item.isDone = !item.isDone}>
+                    <span class="checkbox" on:click={() => toggleDone(item)}>
                         ✓
                     </span>
 
-                {#if !item.isEditing}
-                    <span class="item-list-item-description" on:click={() => item.isEditing = true}>
+                    <span class="item-list-item-description" on:click={() => setEditing(true)}>
                             { item.description }
                         </span>
-                {:else}
-                    <div class="item-list-item-description">
-                        <input type="text" class="input" bind:value={item.description}
-                               on:keydown={e => item.isEditing = e.key != 'Enter'} autofocus>
-                        <div in:slide={{duration: 200}}>
-                          {#each categories as category}
-                              <span class="tag" class:is-primary={item.category == category}
-                                    on:click={() => item.category = category}>
-                        {category}
-                      </span>
-                          {/each}
-                        </div>
-                    </div>
-                {/if}
               </article>
           {/each}
         </div>
