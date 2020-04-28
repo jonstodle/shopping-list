@@ -17,7 +17,6 @@
             description,
             quantity: 1,
             isDone: false,
-            isEditing: false,
             category,
         }
 
