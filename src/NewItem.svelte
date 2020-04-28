@@ -5,34 +5,35 @@
 
     const dispatch = createEventDispatcher()
 
-    let newItem = {
-        description: '',
-        quantity: 1,
-        isDone: false,
-        isEditing: false,
-        category: '',
-    }
+    let description = ''
+    let category = ''
 
     function addItem() {
-        if (!newItem.description) {
+        if (!description) {
             return
         }
 
-        const [quantity, description] = newItem.description.split(' ', 2)
-        const parsed = Number.parseFloat(quantity)
-        if (parsed) {
-            newItem.quantity = parsed
-            newItem.description = description
-        }
-
-        items.add(newItem)
-        newItem = {
-            description: '',
+        const newItem = {
+            description,
             quantity: 1,
             isDone: false,
             isEditing: false,
-            category: '',
+            category,
         }
+
+        const [quantity, ...desc] = description.split(' ')
+        console.log(desc)
+        const parsed = Number.parseFloat(quantity)
+        if (parsed) {
+            newItem.quantity = parsed
+            newItem.description = desc.join(' ')
+        }
+        console.table(newItem)
+
+        items.add(newItem)
+
+        description = ''
+        category = ''
 
         dispatch("itemadd")
     }
@@ -42,17 +43,17 @@
     <div>
         <label for="new-item-input">
             <input id="new-item-input" type="text" class="input is-large" on:keydown
-                   bind:value={newItem.description}
+                   bind:value={description}
                    on:keyup={(e) => e.key == 'Enter' && addItem()}>
         </label>
         <button class="button is-success is-large level-item" on:click={addItem}>Add</button>
     </div>
 
     <div>
-        {#each $categories as category}
-            <span class="tag" class:is-primary={newItem.category == category}
-                  on:click={() => newItem.category = category}>
-                  {category}
+        {#each $categories as cat}
+            <span class="tag" class:is-primary={category == cat}
+                  on:click={() => category = cat}>
+                  {cat}
                 </span>
         {/each}
     </div>
