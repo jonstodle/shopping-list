@@ -75,6 +75,8 @@
     }
 
     #new-item > div:last-child {
+        display: flex;
+        flex-wrap: wrap;
         gap: .5rem;
     }
 
