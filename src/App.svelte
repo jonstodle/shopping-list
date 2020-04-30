@@ -45,7 +45,7 @@
             <div id="to-do">
                 <h2 class="title">{ $items.filter(i => !i.isDone).length } left</h2>
                 <button class="button is-primary" on:click={() => showNewItem = !showNewItem}>
-                  {showNewItem ? 'Close' : 'Add'}
+                  {showNewItem ? 'Hide' : 'Add'}
                 </button>
             </div>
 
@@ -67,7 +67,14 @@
             {/each}
           {/each}
 
-            <h2 class="title">Done</h2>
+            <div id="done">
+                <h2 class="title">Done</h2>
+              {#if $items.filter(item => item.isDone).length}
+                  <button class="button is-danger is-small" on:click={() => items.removeDone()}>
+                      Clear
+                  </button>
+              {/if}
+            </div>
           {#each $items.filter(item => item.isDone) as item (item._id)}
               <div class="box" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
                   <ListItem {item}/>
@@ -84,13 +91,13 @@
         margin-bottom: 3rem;
     }
 
-    #to-do {
+    h2 {
+        display: inline-block;
+    }
+
+    #to-do, #done {
         display: flex;
         align-items: center;
         justify-content: space-between;
-    }
-
-    #to-do > h2 {
-        display: inline-block;
     }
 </style>

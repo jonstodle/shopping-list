@@ -35,8 +35,14 @@ function update(item) {
   persist();
 }
 
+function removeDone() {
+  itemsStore.update((state) => sort(state.filter((item) => !item.isDone)));
+  persist();
+}
+
 export default {
   subscribe: itemsStore.subscribe,
   add,
   update,
+  removeDone,
 };
