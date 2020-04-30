@@ -1,7 +1,7 @@
 <script>
     import {slide} from 'svelte/transition'
+    import CategorySelect from './CategorySelect.svelte'
     import items from './items'
-    import categories from './categories'
 
     export let item
 
@@ -17,7 +17,7 @@
             description = item.description
             category = item.category
             quantity = item.quantity
-            window.addEventListener("click", handleExternalClick)
+            window.addEventListener('click', handleExternalClick)
         } else {
             items.update({
                 ...item,
@@ -25,7 +25,7 @@
                 category,
                 quantity,
             })
-            window.removeEventListener("click", handleExternalClick)
+            window.removeEventListener('click', handleExternalClick)
         }
     }
 
@@ -42,10 +42,9 @@
 
         const outsideListItem = x < left || x > right || y < top || y > bottom
 
-        console.table({left, x, right, top, y, bottom, outsideListItem})
-      if (outsideListItem) {
-          setEditing(false)
-      }
+        if (outsideListItem) {
+            setEditing(false)
+        }
     }
 </script>
 
@@ -67,20 +66,15 @@
           <input type="text" class="input" bind:value={description}
                  on:keydown={e => e.key == 'Enter' && setEditing(false)} autofocus>
           <div in:slide={{duration: 200}}>
-            {#each $categories as cat}
-                <span class="tag" class:is-primary={category == cat}
-                      on:click={() => category = cat}>
-                        {cat}
-                </span>
-            {/each}
+              <CategorySelect bind:category />
           </div>
       </div>
 
       <div class="quantity">
           <input type="number" class="input" bind:value={quantity}
-          on:keydown={e => e.key == 'Enter' && setEditing(false)}>
+                 on:keydown={e => e.key == 'Enter' && setEditing(false)}>
       </div>
-    {/if}
+  {/if}
 </article>
 
 <style>
@@ -114,12 +108,6 @@
         gap: 1rem;
     }
 
-    div.description > div {
-        display: flex;
-        flex-wrap: wrap;
-        gap: .5rem;
-    }
-
     span.quantity {
         opacity: .8;
     }
@@ -129,7 +117,7 @@
         margin-top: -.5em;
     }
 
-    div.quantity>input {
+    div.quantity > input {
         text-align: right;
     }
 

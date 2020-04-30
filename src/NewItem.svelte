@@ -1,7 +1,7 @@
 <script>
     import {createEventDispatcher} from 'svelte'
+    import CategorySelect from './CategorySelect.svelte'
     import items from './items'
-    import categories from './categories'
 
     const dispatch = createEventDispatcher()
 
@@ -38,7 +38,7 @@
     }
 </script>
 
-<div id="new-item" class="container">
+<div class="container">
     <div>
         <label for="new-item-input">
             <input id="new-item-input" type="text" class="input is-large" on:keydown
@@ -48,42 +48,20 @@
         <button class="button is-success is-large level-item" on:click={addItem}>Add</button>
     </div>
 
-    <div>
-        {#each $categories as cat}
-            <span class="tag" class:is-primary={category == cat}
-                  on:click={() => category = cat}>
-                  {cat}
-                </span>
-        {/each}
-    </div>
+    <CategorySelect bind:category />
 </div>
 
 <style>
-    #new-item {
+    div {
         display: flex;
+        gap: 1rem;
+    }
+
+    .container {
         flex-direction: column;
-        gap: 1rem;
     }
 
-    #new-item > div {
-        display: flex;
-    }
-
-    #new-item > div:first-child {
-        gap: 1rem;
-    }
-
-    #new-item > div:last-child {
-        display: flex;
-        flex-wrap: wrap;
-        gap: .5rem;
-    }
-
-    #new-item label {
+    label {
         flex: 1;
-    }
-
-    #new-item .tag {
-        cursor: pointer;
     }
 </style>
