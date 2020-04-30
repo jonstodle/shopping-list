@@ -4,8 +4,10 @@
     import items from './items'
     import NewItem from './NewItem.svelte'
     import ListItem from './ListItem.svelte'
+    import CategoryEdit from './CategoryEdit.svelte'
 
     let showNewItem = !$items.length
+    let showCategoryEdit = false
 
     $: groupedItems = $items
             .filter(item => !item.isDone)
@@ -20,11 +22,22 @@
 
 <main>
     <nav class="navbar has-background-primary">
-      <div class="navbar-brand">
-          <h1 class="navbar-item is-size-3 has-text-light">
-              Shopping List
-          </h1>
-      </div>
+        <div class="navbar-brand">
+            <h1 class="navbar-item is-size-3 has-text-light">
+                Shopping List
+            </h1>
+        </div>
+
+        <div class="navbar-menu is-active">
+            <div class="navbar-start"></div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <button class="button is-small" on:click={() => showCategoryEdit = true}>
+                        Edit categories
+                    </button>
+                </div>
+            </div>
+        </div>
     </nav>
 
     <section class="section">
@@ -63,6 +76,8 @@
         </div>
     </section>
 </main>
+
+<CategoryEdit bind:show={showCategoryEdit}/>
 
 <style>
     #new-item {
