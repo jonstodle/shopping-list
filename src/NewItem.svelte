@@ -41,7 +41,8 @@
 <div class="container">
     <div>
         <label for="new-item-input">
-            <input id="new-item-input" type="text" class="input is-large" on:keydown
+            <input id="new-item-input" type="text" class="input is-large"
+                   placeholder="3 Milk"
                    bind:value={description}
                    on:keyup={(e) => e.key == 'Enter' && addItem()}>
         </label>
@@ -52,16 +53,26 @@
 </div>
 
 <style>
-    div {
+    .container {
         display: flex;
+        flex-direction: column;
         gap: 1rem;
     }
 
-    .container {
-        flex-direction: column;
+    .container>div {
+        display: flex;
     }
 
     label {
         flex: 1;
+    }
+
+    input {
+        border-radius: 4px 0 0 4px;
+        border-right: 0;
+    }
+
+    button {
+        border-radius: 0 4px 4px 0;
     }
 </style>

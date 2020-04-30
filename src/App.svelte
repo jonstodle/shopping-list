@@ -5,7 +5,7 @@
     import NewItem from './NewItem.svelte'
     import ListItem from './ListItem.svelte'
 
-    let showNewItem = false
+    let showNewItem = !$items.length
 
     $: groupedItems = $items
             .filter(item => !item.isDone)
@@ -19,11 +19,13 @@
 </script>
 
 <main>
-  {#if showNewItem}
-      <section class="section" transition:slide={{duration: 200}}>
-          <NewItem on:itemadd={() => showNewItem = false}/>
-      </section>
-  {/if}
+    <nav class="navbar has-background-primary">
+      <div class="navbar-brand">
+          <h1 class="navbar-item is-size-3 has-text-light">
+              Shopping List
+          </h1>
+      </div>
+    </nav>
 
     <section class="section">
         <div class="container">
@@ -33,6 +35,13 @@
                   {showNewItem ? 'Close' : 'Add'}
                 </button>
             </div>
+
+          {#if showNewItem}
+              <section id="new-item" transition:slide={{duration: 200}}>
+                  <NewItem/>
+              </section>
+          {/if}
+
           {#each Object.keys(groupedItems) as category}
               <h2 class="subtitle" transition:slide={{duration: 200}}>
                 { category || 'Uncategorised' }
@@ -56,6 +65,10 @@
 </main>
 
 <style>
+    #new-item {
+        margin-bottom: 3rem;
+    }
+
     #to-do {
         display: flex;
         align-items: center;
@@ -64,9 +77,5 @@
 
     #to-do > h2 {
         display: inline-block;
-    }
-
-    .is-done {
-        opacity: .7;
     }
 </style>
