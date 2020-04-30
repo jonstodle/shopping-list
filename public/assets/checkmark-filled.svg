@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>checkmark-filled</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="64" cy="64" r="64"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="checkmark-filled">
+            <g id="Oval">
+                <use fill="#2CC13D" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <circle stroke="#006C1D" stroke-width="4" cx="64" cy="64" r="62"></circle>
+            </g>
+            <g id="Group" transform="translate(60.464009, 55.600392) rotate(-322.000000) translate(-60.464009, -55.600392) translate(36.464009, 7.600392)" fill="#FFFFFF">
+                <rect id="Rectangle" x="0" y="84" width="48" height="12"></rect>
+                <rect id="Rectangle-2" x="36" y="0" width="12" height="96"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

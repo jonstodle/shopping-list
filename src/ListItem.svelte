@@ -50,7 +50,7 @@
 
 <article id={`item-${item._id}`} class:is-done={item.isDone} class:is-editing={isEditing}>
     <span class="checkbox" on:click={() => toggleDone(item)}>
-        ✓
+        <img src={`/assets/checkmark-${item.isDone ? 'filled' : 'empty'}.svg`} alt="item is done indicator">
     </span>
 
   {#if !isEditing}
@@ -66,7 +66,7 @@
           <input type="text" class="input" bind:value={description}
                  on:keydown={e => e.key == 'Enter' && setEditing(false)} autofocus>
           <div in:slide={{duration: 200}}>
-              <CategorySelect bind:category />
+              <CategorySelect bind:category/>
           </div>
       </div>
 
@@ -88,7 +88,11 @@
     .checkbox {
         padding: 1.25rem;
         margin: -1.25rem;
-        opacity: 0;
+    }
+
+    img {
+        width: 24px;
+        height: 24px;
     }
 
     .description {
@@ -119,10 +123,6 @@
 
     div.quantity > input {
         text-align: right;
-    }
-
-    .is-done > span:first-child {
-        opacity: 1;
     }
 
     .is-editing > span:first-child {
