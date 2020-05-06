@@ -1,12 +1,13 @@
 <script>
-    import {createEventDispatcher} from 'svelte'
-    import CategorySelect from './CategorySelect.svelte'
-    import items from './items'
+    import DepartmentSelect from './DepartmentSelect.svelte'
+    import {getList} from './state'
 
-    const dispatch = createEventDispatcher()
+    export let listId
+
+    const list = getList(listId)
 
     let description = ''
-    let category = ''
+    let department = ''
 
     function addItem() {
         if (!description) {
@@ -15,26 +16,20 @@
 
         const newItem = {
             description,
-            quantity: 1,
-            isDone: false,
-            category,
+            department,
         }
 
         const [quantity, ...desc] = description.split(' ')
-        console.log(desc)
         const parsed = Number.parseFloat(quantity)
         if (parsed) {
             newItem.quantity = parsed
             newItem.description = desc.join(' ')
         }
-        console.table(newItem)
 
-        items.add(newItem)
+        list.addItem(newItem)
 
         description = ''
-        category = ''
-
-        dispatch("itemadd")
+        department = ''
     }
 </script>
 
@@ -49,7 +44,7 @@
         <button class="button is-success is-large level-item" on:click={addItem}>Add</button>
     </div>
 
-    <CategorySelect bind:category />
+    <DepartmentSelect {listId} bind:department />
 </div>
 
 <style>

@@ -1,7 +1,9 @@
 <script>
-    import categories from './categories'
+    import {getList, showDepartmentEdit} from './state'
 
-    export let show = false
+    export let listId
+
+    const list = getList(listId)
 
     let newCategory = ''
 
@@ -10,16 +12,16 @@
             return
         }
 
-        categories.add(newCategory)
+        list.addDepartment(newCategory)
         newCategory = ''
     }
 </script>
 
-<div class="modal" class:is-active={show}>
+<div class="modal" class:is-active={$showDepartmentEdit}>
     <div class="modal-background"></div>
     <div class="modal-content has-background-light">
         <h1 class="is-size-2">
-            Edit categories
+            Edit departments
         </h1>
 
         <div>
@@ -31,20 +33,20 @@
         </div>
 
         <div>
-          {#each $categories as cat}
+          {#each $list.departments as dep}
               <div class="box">
               <span>
-                {cat}
+                {dep}
               </span>
 
-                  <button class="button is-danger" on:click={() => categories.remove(cat)}>
+                  <button class="button is-danger" on:click={() => list.removeDepartment(dep)}>
                       Delete
                   </button>
               </div>
           {/each}
         </div>
     </div>
-    <button class="modal-close is-large" aria-label="close" on:click={() => show = false}></button>
+    <button class="modal-close is-large" aria-label="close" on:click={() => showDepartmentEdit.hide()}></button>
 </div>
 
 <style>
