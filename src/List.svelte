@@ -55,15 +55,17 @@
       {/if}
 
       {#each Object.keys(groupedItems) as category}
-          <h2 class="subtitle" transition:slide={{duration: 200}}>
+      <div class="panel">
+          <p class="panel-heading">
             { category || 'Uncategorised' }
-          </h2>
+          </p>
 
         {#each groupedItems[category] as item (item.id)}
-            <div class="box" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
+            <div class="panel-block" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
                 <ListItem {listId} {item}/>
             </div>
         {/each}
+      </div>
       {/each}
 
         <div id="done">
@@ -74,11 +76,13 @@
               </button>
           {/if}
         </div>
+      <div class="panel">
       {#each doneItems as item (item.id)}
-          <div class="box" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
+          <div class="panel-block" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
               <ListItem {listId} {item}/>
           </div>
       {/each}
+      </div>
     </div>
 </section>
 

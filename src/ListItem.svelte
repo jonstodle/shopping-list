@@ -81,6 +81,7 @@
         align-items: center;
         gap: 1rem;
         cursor: pointer;
+        width: 100%;
     }
 
     .checkbox {
@@ -111,6 +112,7 @@
     }
 
     span.quantity {
+        justify-self: flex-end;
         opacity: .8;
     }
 
