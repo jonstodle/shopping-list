@@ -16,6 +16,8 @@
 
     $: groupedItems = $list.items
             .filter(item => !item.isDone)
+            .sort((a, b) => a.description.localeCompare(b.description))
+            .sort((a, b) => a.department.localeCompare(b.department))
             .reduce((agg, curr) => {
                 agg[curr.department] = [
                     ...(agg[curr.department] || []),
@@ -23,6 +25,10 @@
                 ]
                 return agg
             }, {})
+
+    $: doneItems = $list.items
+      .filter(item => item.isDone)
+      .sort((a, b) => a.description.localeCompare(b.description))
 </script>
 
 <nav class="navbar has-background-primary">
@@ -68,7 +74,7 @@
               </button>
           {/if}
         </div>
-      {#each $list.items.filter(item => item.isDone) as item (item.id)}
+      {#each doneItems as item (item.id)}
           <div class="box" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
               <ListItem {listId} {item}/>
           </div>

@@ -5,6 +5,9 @@
     export let department = ''
 
     const list = getList(listId)
+
+    $: departments = $list.departments
+      .sort((a, b) => a.localeCompare(b))
 </script>
 
 <div>
