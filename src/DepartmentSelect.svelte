@@ -16,7 +16,7 @@
         {dep}
       </span>
   {/each}
-    <span class="tag" on:click={() => showDepartmentEdit.show()}>
+    <span class="tag edit" on:click={() => showDepartmentEdit.show()}>
         Edit...
     </span>
 </div>
@@ -30,5 +30,9 @@
 
     .tag {
         cursor: pointer;
+    }
+
+    .edit {
+        border: solid darkslategrey 1px;
     }
 </style>
