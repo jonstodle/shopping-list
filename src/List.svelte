@@ -89,6 +89,13 @@
 <DepartmentEdit {listId}/>
 
 <style>
+    @media screen and (max-width: 500px) {
+        .section {
+            padding-left: .5rem;
+            padding-right: .5rem;
+        }
+    }
+
     #new-item {
         margin-bottom: 3rem;
     }
@@ -101,5 +108,9 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
+    }
+
+    .panel-block {
+        padding: 0;
     }
 </style>

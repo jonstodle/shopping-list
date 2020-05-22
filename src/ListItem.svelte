@@ -61,7 +61,7 @@
       </span>
   {:else}
       <div class="description">
-          <input type="text" class="input" bind:value={description}
+          <input type="text" class="input is-small" bind:value={description}
                  on:keydown={e => e.key == 'Enter' && setEditing(false)} autofocus>
           <div in:slide={{duration: 200}}>
               <DepartmentSelect {listId} bind:department/>
@@ -69,7 +69,7 @@
       </div>
 
       <div class="quantity">
-          <input type="number" class="input" bind:value={quantity}
+          <input type="number" class="input is-small" bind:value={quantity}
                  on:keydown={e => e.key == 'Enter' && setEditing(false)}>
       </div>
   {/if}
@@ -79,14 +79,12 @@
     article {
         display: flex;
         align-items: center;
-        gap: 1rem;
         cursor: pointer;
         width: 100%;
     }
 
     .checkbox {
-        padding: 1.25rem;
-        margin: -1.25rem;
+        padding: .5rem 1rem .5rem .5rem;
     }
 
     img {
@@ -96,19 +94,17 @@
 
     .description {
         flex: 1;
-    }
-
-    span.description {
-        padding: 1.25rem;
-        margin: -1.25rem;
+        padding: .5rem 0;
     }
 
     div.description {
-        margin-left: -.75em;
-        margin-top: -.5em;
         display: flex;
         flex-direction: column;
         gap: 1rem;
+    }
+
+    .quantity {
+        padding: .5rem;
     }
 
     span.quantity {
@@ -118,11 +114,11 @@
 
     div.quantity {
         align-self: start;
-        margin-top: -.5em;
     }
 
     div.quantity > input {
         text-align: right;
+        width: 4rem;
     }
 
     .is-editing > span:first-child {
