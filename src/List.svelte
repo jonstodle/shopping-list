@@ -1,6 +1,5 @@
 <script>
-    import {slide} from 'svelte/transition'
-    import {flip} from 'svelte/animate'
+    import {fade} from 'svelte/transition'
     import {link} from 'svelte-routing'
     import NewItem from './NewItem.svelte'
     import ListItem from './ListItem.svelte'
@@ -49,19 +48,19 @@
         </div>
 
       {#if showNewItem}
-          <section id="new-item" transition:slide={{duration: 200}} {listId}>
+          <section id="new-item" {listId}>
               <NewItem {listId} />
           </section>
       {/if}
 
       {#each Object.keys(groupedItems) as category}
-      <div class="panel">
+      <div class="panel" transition:fade={{duration: 150}}>
           <p class="panel-heading">
             { category || 'Uncategorised' }
           </p>
 
         {#each groupedItems[category] as item (item.id)}
-            <div class="panel-block" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
+            <div class="panel-block" transition:fade={{duration: 150}}>
                 <ListItem {listId} {item}/>
             </div>
         {/each}
@@ -78,7 +77,7 @@
         </div>
       <div class="panel">
       {#each doneItems as item (item.id)}
-          <div class="panel-block" transition:slide={{duration: 200}} animate:flip={{duration: 400}}>
+          <div class="panel-block" transition:fade={{duration: 150}}>
               <ListItem {listId} {item}/>
           </div>
       {/each}
