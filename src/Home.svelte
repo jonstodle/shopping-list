@@ -50,6 +50,7 @@
 
     #new-list > input {
         flex: 1;
+        min-width: 10em;
     }
 
     .box {
