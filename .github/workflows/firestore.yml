@@ -1,0 +1,19 @@
+name: Deploy Firestore
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Deploy Firestore config
+      run: |
+        yarn
+        npx firebase deploy --only firestore
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
