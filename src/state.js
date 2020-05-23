@@ -1,4 +1,11 @@
 import { writable } from "svelte/store";
+import firebase from "firebase/app";
+import "firebase/firestore";
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCPO5k-AFYp3VDhTd3zsKW1eZ9YJui2ymY",
+  projectId: "jgs-shopping-list",
+});
 
 const showDepartmentEditStore = writable(false);
 export const showDepartmentEdit = {
