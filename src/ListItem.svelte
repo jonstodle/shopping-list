@@ -64,7 +64,7 @@
           <input type="text" class="input is-small" bind:value={description}
                  on:keydown={e => e.key == 'Enter' && setEditing(false)} autofocus>
           <div in:slide={{duration: 200}}>
-              <DepartmentSelect {listId} bind:department/>
+              <DepartmentSelect {listId} bind:department on:select={() => document.querySelector('.description>input').focus()}/>
           </div>
       </div>
 

@@ -1,18 +1,25 @@
 <script>
+    import {createEventDispatcher} from 'svelte'
     import {getList, showDepartmentEdit} from './state'
 
     export let listId
     export let department = ''
 
+    const dispatch = createEventDispatcher()
     const list = getList(listId)
 
     $: departments = $list.departments
       .sort((a, b) => a.localeCompare(b))
+
+    const select = (dep) => {
+        department = dep == department ? '' : dep
+        dispatch('select', dep)
+    }
 </script>
 
 <div>
   {#each $list.departments as dep}
-      <span class="tag" class:is-primary={department == dep} on:click={() => department = dep == department ? '' : dep}>
+      <span class="tag" class:is-primary={department == dep} on:click={() => select(dep)}>
         {dep}
       </span>
   {/each}

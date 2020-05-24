@@ -44,7 +44,7 @@
         <button class="button is-success is-large level-item" on:click={addItem}>Add</button>
     </div>
 
-    <DepartmentSelect {listId} bind:department />
+    <DepartmentSelect {listId} bind:department on:select={() => document.getElementById('new-item-input').focus()} />
 </div>
 
 <style>
