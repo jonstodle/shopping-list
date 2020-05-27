@@ -14,19 +14,7 @@
             return
         }
 
-        const newItem = {
-            description,
-            department,
-        }
-
-        const [quantity, ...desc] = description.split(' ')
-        const parsed = Number.parseFloat(quantity)
-        if (parsed) {
-            newItem.quantity = parsed
-            newItem.description = desc.join(' ')
-        }
-
-        list.addItem(newItem)
+        list.addItem(description, department)
 
         description = ''
         department = ''

@@ -63,24 +63,25 @@ export const getList = (listId) => {
         sub(data);
       });
     },
-    addItem: (newItem) => {
+    addItem: (description, department) => {
       const randValues = new Int8Array(6);
-      const id = [...window.crypto.getRandomValues(randValues)]
-        .map((v) => v.toString(16))
-        .join("");
+      const [quantity, desc] = parseQuantity(description);
 
       list.update({
         items: firebase.firestore.FieldValue.arrayUnion({
-          id,
-          description: "New item",
-          department: "",
-          quantity: 1,
+          id: [...window.crypto.getRandomValues(randValues)]
+            .map((v) => v.toString())
+            .join(""),
+          description: desc,
+          department,
+          quantity,
           isDone: false,
-          ...newItem,
         }),
       });
     },
     updateItem: (item, update) => {
+      const [quantity, description] = parseQuantity(update.description);
+
       const batch = db.batch();
       batch.update(list, {
         items: firebase.firestore.FieldValue.arrayRemove(item),
@@ -88,7 +89,11 @@ export const getList = (listId) => {
       batch.update(list, {
         items: firebase.firestore.FieldValue.arrayUnion({
           ...item,
-          ...update,
+          ...{
+            ...update,
+            description,
+            quantity,
+          },
         }),
       });
       batch.commit();
@@ -112,4 +117,13 @@ export const getList = (listId) => {
       });
     },
   };
+};
+
+const parseQuantity = (description) => {
+  const [quantity, ...desc] = description.split(" ");
+  const parsed = Number.parseFloat(quantity);
+  if (parsed) {
+    return [parsed, desc.join(" ")];
+  }
+  return [1, description];
 };

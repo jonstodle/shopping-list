@@ -11,20 +11,17 @@
 
     let description = ''
     let department = ''
-    let quantity = 1
 
     function setEditing(editing) {
         isEditing = editing
         if (isEditing) {
-            description = item.description
+            description = [item.quantity, item.description].join(' ')
             department = item.department
-            quantity = item.quantity
             window.addEventListener('click', handleExternalClick)
         } else {
             list.updateItem(item, {
                 description,
                 department,
-                quantity,
             })
             window.removeEventListener('click', handleExternalClick)
         }
@@ -67,11 +64,6 @@
               <DepartmentSelect {listId} bind:department on:select={() => document.querySelector('.description>input').focus()}/>
           </div>
       </div>
-
-      <div class="quantity">
-          <input type="number" class="input is-small" bind:value={quantity}
-                 on:keydown={e => e.key == 'Enter' && setEditing(false)}>
-      </div>
   {/if}
 </article>
 
@@ -101,6 +93,7 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        padding-right: .5rem;
     }
 
     .quantity {
@@ -110,15 +103,6 @@
     span.quantity {
         justify-self: flex-end;
         opacity: .8;
-    }
-
-    div.quantity {
-        align-self: start;
-    }
-
-    div.quantity > input {
-        text-align: right;
-        width: 4rem;
     }
 
     .is-editing > span:first-child {
