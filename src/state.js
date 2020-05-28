@@ -80,7 +80,11 @@ export const getList = (listId) => {
       });
     },
     updateItem: (item, update) => {
-      const [quantity, description] = parseQuantity(update.description);
+      if (update.description) {
+        const [quantity, description] = parseQuantity(update.description);
+        update.description = description;
+        update.quantity = quantity;
+      }
 
       const batch = db.batch();
       batch.update(list, {
@@ -89,11 +93,7 @@ export const getList = (listId) => {
       batch.update(list, {
         items: firebase.firestore.FieldValue.arrayUnion({
           ...item,
-          ...{
-            ...update,
-            description,
-            quantity,
-          },
+          ...update,
         }),
       });
       batch.commit();
