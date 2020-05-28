@@ -121,9 +121,8 @@ export const getList = (listId) => {
 
 const parseQuantity = (description) => {
   const [quantity, ...desc] = description.split(" ");
-  const parsed = Number.parseFloat(quantity);
-  if (parsed) {
-    return [parsed, desc.join(" ")];
+  if (/^(,?|\.?)[0-9].*/.test(quantity)) {
+    return [quantity, desc.join(" ")];
   }
   return [1, description];
 };
