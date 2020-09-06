@@ -5,7 +5,7 @@
 
   let lists = getLists();
   let newList = "";
-  let isEditing = true;
+  let isEditing = false;
 
   function addList() {
     if (!newList) {
