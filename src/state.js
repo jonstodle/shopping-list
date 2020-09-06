@@ -35,6 +35,7 @@ export const getLists = () => ({
   add: (name) => {
     listsCollection.add({
       name,
+      active: true,
       items: [],
       departments: [],
     });
@@ -61,6 +62,11 @@ export const getList = (listId) => {
         };
         localStorage.setItem(listId, JSON.stringify(data));
         sub(data);
+      });
+    },
+    setActive: (active) => {
+      list.update({
+        active,
       });
     },
     addItem: (description, department) => {
