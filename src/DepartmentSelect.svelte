@@ -1,26 +1,29 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-  import { getList, showDepartmentEdit } from "./state";
+  import {createEventDispatcher} from 'svelte'
+  import {getList, showDepartmentEdit} from './state'
 
-  export let listId;
-  export let department = "";
+  export let listId
+  export let department = ''
 
-  const dispatch = createEventDispatcher();
-  const list = getList(listId);
+  const dispatch = createEventDispatcher()
+  const list = getList(listId)
 
-  $: departments = $list.departments.sort((a, b) => a.localeCompare(b));
+  $: departments = $list.departments.sort((a, b) => a.localeCompare(b))
 
   const select = (dep) => {
-    department = dep == department ? "" : dep;
-    dispatch("select", dep);
-  };
+    department = dep == department ? '' : dep
+    dispatch('select', dep)
+  }
 </script>
 
 <style>
   div {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+  }
+
+  span {
+    margin: .25rem;
   }
 
   .tag {
@@ -35,9 +38,9 @@
 <div>
   {#each $list.departments as dep}
     <span
-      class="tag"
-      class:is-primary={department == dep}
-      on:click={() => select(dep)}>
+        class="tag"
+        class:is-primary={department == dep}
+        on:click={() => select(dep)}>
       {dep}
     </span>
   {/each}
