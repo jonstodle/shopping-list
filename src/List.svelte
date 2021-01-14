@@ -79,11 +79,11 @@
     {/if}
 
     {#each Object.keys(groupedItems) as category}
-      <div class="panel" transition:fade={{ duration: 150 }}>
+      <div class="panel" transition:fade|local={{ duration: 150 }}>
         <p class="panel-heading">{category || 'Uncategorised'}</p>
 
         {#each groupedItems[category] as item (item.id)}
-          <div class="panel-block" transition:fade={{ duration: 150 }}>
+          <div class="panel-block" transition:fade|local={{ duration: 150 }}>
             <ListItem {listId} {item} />
           </div>
         {/each}
@@ -102,7 +102,7 @@
     </div>
     <div class="panel">
       {#each doneItems as item (item.id)}
-        <div class="panel-block" transition:fade={{ duration: 150 }}>
+        <div class="panel-block" transition:fade|local={{ duration: 150 }}>
           <ListItem {listId} {item} />
         </div>
       {/each}
