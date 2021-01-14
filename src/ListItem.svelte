@@ -64,7 +64,7 @@
 
   .description {
     flex: 1;
-    padding: 0.5rem 0;
+    padding: 0.5rem;
   }
 
   div.description {
@@ -75,7 +75,7 @@
   }
 
   .quantity {
-    padding: 0.5rem;
+    padding: 0.5rem 0;
   }
 
   span.quantity {
@@ -99,11 +99,11 @@
   </span>
 
   {#if !isEditing}
+    <span class="quantity">{item.quantity}</span>
+
     <span class="description" on:click={() => setEditing(true)}>
       {item.description}
     </span>
-
-    <span class="quantity">{item.quantity}</span>
   {:else}
     <div class="description">
       <input
