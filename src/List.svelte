@@ -73,7 +73,7 @@
     </div>
 
     {#if showNewItem}
-      <section id="new-item" {listId}>
+      <section id="new-item" {listId} transition:slide={{duration: 150}}>
         <NewItem {listId} />
       </section>
     {/if}
